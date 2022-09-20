@@ -1,6 +1,7 @@
 import React from 'react';
-import { screen, act } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { act } from 'react-dom/test-utils';
 import App from '../App';
 import renderWithRouter from '../renderWithRouter';
 
@@ -31,7 +32,7 @@ describe('Teste App', () => {
     expect(pathname).toBe('/about');
   });
 
-  it('Verifica o link About', () => {
+  it('Verifica o link Favorites', () => {
     const { history } = renderWithRouter(<App />);
     const links = screen.getAllByRole('link');
     const linkFavorite = links[2];
@@ -42,5 +43,20 @@ describe('Teste App', () => {
     const { location: { pathname } } = history;
 
     expect(pathname).toBe('/favorites');
+  });
+
+  it('Verifica a pargina Not Found', () => {
+    const { history } = renderWithRouter(<App />);
+
+    act(() => {
+      history.push('/page-not-found');
+    });
+
+    const notFoundTitle = screen.getByRole('heading', {
+      name: 'Page requested not found',
+      level: 2,
+    });
+
+    expect(notFoundTitle).toBeInTheDocument();
   });
 });
