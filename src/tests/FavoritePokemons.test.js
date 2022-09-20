@@ -1,7 +1,6 @@
 import React from 'react';
 import { screen, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { act } from 'react-dom/test-utils';
 import FavoritePokemons from '../pages/FavoritePokemons';
 import App from '../App';
 import renderWithRouter from '../renderWithRouter';
